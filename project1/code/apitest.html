@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student API Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    button { margin: 5px; }
+    input, select { margin: 5px; }
+    pre { background: #f4f4f4; padding: 10px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>Student API Tester</h1>
+
+  <h2>Login</h2>
+  <input id="user" placeholder="Username">
+  <input id="pass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+
+  <h2>Student Actions</h2>
+  <button onclick="getAll()">Get All Students</button><br>
+
+  <input id="getId" placeholder="Student ID">
+  <button onclick="getById()">Get Student by ID</button><br>
+
+  <input id="name" placeholder="Name">
+  <button onclick="getByName()">Get by Name</button><br>
+
+  <input id="course" placeholder="Course">
+  <button onclick="getByCourse()">Get by Course</button><br>
+
+  <input id="major" placeholder="Major">
+  <button onclick="getByMajor()">Get by Major</button><br>
+
+  <input id="year" placeholder="Year">
+  <button onclick="getByYear()">Get by Year</button><br>
+
+  <h2>Create Student</h2>
+  <input id="cname" placeholder="Name">
+  <input id="ccourse" placeholder="Course">
+  <input id="cmajor" placeholder="Major">
+  <input id="cyear" placeholder="Year">
+  <button onclick="createStudent()">Create</button>
+
+  <h2>Update Student</h2>
+  <input id="uid" placeholder="ID">
+  <input id="uname" placeholder="Name">
+  <input id="uyear" placeholder="Year">
+  <button onclick="updateStudent()">Update</button>
+
+  <h2>Delete</h2>
+  <input id="did" placeholder="ID">
+  <button onclick="deleteStudent()">Delete</button>
+  <button onclick="deleteAll()">Delete All</button>
+
+  <h2>Output</h2>
+  <pre id="output"></pre>
+
+  <script>
+    const LOGIN = "http://localhost:8000/code/models/login.php";
+    const API = "http://localhost:8000/code/models/EPindex.php";
+
+    async function callAPI(url, options = {}) {
+      const res = await fetch(url, { credentials: "include", ...options });
+      const text = await res.text();
+      try {
+        const data = JSON.parse(text);
+        document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+      } catch {
+        document.getElementById("output").textContent = text;
+      }
+    }
+
+    async function login() {
+      const user = document.getElementById("user").value;
+      const pass = document.getElementById("pass").value;
+      const formData = new URLSearchParams();
+      formData.append("username", user);
+      formData.append("password", pass);
+      await callAPI(LOGIN, { method: "POST", body: formData });
+    }
+
+    function getAll() { callAPI(`${API}?action=all`); }
+    function getById() { callAPI(`${API}?action=get&id=${document.getElementById("getId").value}`); }
+    function getByName() { callAPI(`${API}?action=name&name=${document.getElementById("name").value}`); }
+    function getByCourse() { callAPI(`${API}?action=course&course=${document.getElementById("course").value}`); }
+    function getByMajor() { callAPI(`${API}?action=major&major=${document.getElementById("major").value}`); }
+    function getByYear() { callAPI(`${API}?action=year&year=${document.getElementById("year").value}`); }
+
+    function createStudent() {
+      const body = {
+        name: document.getElementById("cname").value,
+        course: document.getElementById("ccourse").value,
+        major: document.getElementById("cmajor").value,
+        year: document.getElementById("cyear").value
+      };
+      callAPI(`${API}?action=create`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    }
+
+    function updateStudent() {
+      const id = document.getElementById("uid").value;
+      const body = {
+        name: document.getElementById("uname").value,
+        year: document.getElementById("uyear").value
+      };
+      callAPI(`${API}?action=update&id=${id}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    }
+
+    function deleteStudent() {
+      const id = document.getElementById("did").value;
+      callAPI(`${API}?action=delete&id=${id}`, { method: "POST" });
+    }
+
+    function deleteAll() {
+      callAPI(`${API}?action=delete_all`, { method: "POST" });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+[
+    {
+        "username": "admin",
+        "password_hash": "$2y$10$X4qJTSkE7HVEj13Ahj1dYOhhM42OOe8peedGvq7r3VWbUHD.67t82",
+        "email": "admin132@uni.edu",
+        "created_at": "2025-09-24T04:55:01+02:00",
+        "is_active": true,
+        "login_attempts": 0,
+        "last_attempt": null,
+        "last_login": "2025-09-24T20:36:44+00:00",
+        "id": 1
+    },
+    {
+        "username": "bob_teacher",
+        "password_hash": "$2y$10$Lmpl2Gu2Y20buS8t8GmPNulE9bchLW3cy239xayPEUkrgqqMYFCZ.",
+        "email": "bob_teach42@uni.edu",
+        "created_at": "2025-09-24T06:43:19+02:00",
+        "is_active": true,
+        "login_attempts": 0,
+        "last_attempt": null,
+        "last_login": "2025-09-24T06:47:23+02:00",
+        "id": 2,
+        "updated_at": "2025-09-24T06:44:50+02:00",
+        "password_changed_at": "2025-09-24T06:48:57+02:00",
+        "deactivated_at": "2025-09-24T06:50:04+02:00",
+        "activated_at": "2025-09-24T06:50:09+02:00"
+    }
+]

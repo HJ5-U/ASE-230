@@ -14,3 +14,19 @@ password: Admin123@
 Teacher account:
 username: bob_teacher
 password: Learning1s@llFun
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+This section is to act as a ReadMe file for the REST API of Project 2
+
+this API is a simuation of a secure database system for student information for University faculty and staff that is overseen by a University admin.
+(Disclaimer: this version of the API won't use email varication, no real emails will be used for the API)
+
+User names and Passwords for the example admin and teacher will be found below.
+
+Admin Account:
+Username : Admin
+Password: Admin@123!Secure
+
+Test User Account:
+Username:Test
+Password:password123
